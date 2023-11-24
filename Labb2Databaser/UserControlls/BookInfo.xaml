@@ -50,12 +50,13 @@
                  Grid.Column="3"
                  Width="100"
                  Height="200"
-                 Visibilit
+                 Visibility="Collapsed"/>
 
         <ListBox x:Name="RelatedBBListBox"
                  Grid.Row="3"
                  Grid.Column="5"
                  Width="100"
-                 Height="200"/>
+                 Height="200"
+                 Visibility="Collapsed"/>
     </Grid>
 </UserControl>

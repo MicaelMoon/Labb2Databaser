@@ -49,6 +49,13 @@ namespace Labb2Databaser
 
 		private void InfoBtn_Click(object sender, RoutedEventArgs e)
 		{
+			bookInfo= new BookInfo();
+
+			this.MainGrid.Children.Add(bookInfo);
+
+			Grid.SetRow(bookInfo, 2);
+			Grid.SetColumn(bookInfo, 2);
+
 			bookInfo.BookInfoStartUp();
 		}
 	}
