@@ -55,4 +55,17 @@ public partial class Böcker
         await MainWindow._dbContext.SaveChangesAsync();
         MessageBox.Show($"Save successul. {bookToAdd.Antal}");
     }
+
+    public async Task AddBookToSystemAsync(string isbn, string titel, string language, int pages, int price, string releaseDate, string Author)
+    {
+        this.Isbn = isbn;
+        this.Titel = titel;
+        this.Language = language;
+        this.Sidor = pages;
+        this.Pris = price;
+        this.Utgivningsdatum = releaseDate;
+
+        this.FörfattarId = MainWindow._dbContext.Författares
+            .FirstOrDefaultAsync(f => f.FörNamn == Author);
+    }
 }

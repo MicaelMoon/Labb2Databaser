@@ -23,9 +23,11 @@ namespace Labb2Databaser
 	public partial class MainWindow : Window
 	{
 		public static LibraryDBContext _dbContext;
+
 		public BookSettings bookSettings;
 		public BookInfo bookInfo;
-		
+		public NewBookUC newBookUC;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -33,23 +35,12 @@ namespace Labb2Databaser
 		}
 
 
-		private void BookSettings_Click(object sender, RoutedEventArgs e)
-		{
-			bookSettings = new BookSettings();
-			//bookSettings.SetValue(Grid.WidthProperty());
-
-			this.MainGrid.Children.Add(bookSettings);
-
-
-			Grid.SetRow(bookSettings, 2);
-			Grid.SetColumn(bookSettings, 2);
-
-			bookSettings.LoadData();
-		}
 
 		private void InfoBtn_Click(object sender, RoutedEventArgs e)
 		{
-			bookInfo= new BookInfo();
+			RemoveExistingUserControls();
+
+			bookInfo = new BookInfo();
 
 			this.MainGrid.Children.Add(bookInfo);
 
@@ -61,8 +52,9 @@ namespace Labb2Databaser
 
 		private void BookSettingsbtn_Click(object sender, RoutedEventArgs e)
 		{
+			RemoveExistingUserControls();
+
 			bookSettings = new BookSettings();
-			//bookSettings.SetValue(Grid.WidthProperty());
 
 			this.MainGrid.Children.Add(bookSettings);
 
@@ -71,6 +63,24 @@ namespace Labb2Databaser
 			Grid.SetColumn(bookSettings, 2);
 
 			bookSettings.LoadData();
+		}
+
+		private void AddBookToSystem_Click(object sender, RoutedEventArgs e)
+		{
+			RemoveExistingUserControls();
+			newBookUC = new NewBookUC();
+
+			this.MainGrid.Children.Add(newBookUC);
+
+			Grid.SetRow(newBookUC, 2);
+			Grid.SetColumn(newBookUC, 2);
+		}
+
+		private void RemoveExistingUserControls()
+		{
+			MainGrid.Children.Remove(newBookUC);
+			MainGrid.Children.Remove(bookInfo);
+			MainGrid.Children.Remove(bookSettings);
 		}
 	}
 }

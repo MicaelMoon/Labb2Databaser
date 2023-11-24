@@ -31,14 +31,14 @@
                 Margin="0, 0, 0, 280" 
                 Click="BookSettingsbtn_Click"/>
 
-        <Button x:Name="Add book to system"
+        <Button x:Name="AddBookToSystem"
                 Grid.Row="2"
                 Grid.Column="1"
                 Width="130"
                 Height="20"
                 Content="Move Books to Butik"
                 Margin="0, 0, 0, 210" 
-                Click="BookSettingsbtn_Click"/>
+                Click="AddBookToSystem_Click"/>
 
         <Button x:Name="InfoBtn"
                 Grid.Row="2"
