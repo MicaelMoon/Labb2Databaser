@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,20 +41,17 @@ namespace Labb2Databaser.UserControlls
 		public void LoadData()
 		{
 
-
 			BookBtn.Visibility = Visibility.Visible;
 			ButikBtn.Visibility = Visibility.Visible;
 
-			SelectedAsListBox.Items.Clear();
-
-			if(selectedAsButik == true)//If you selected butik button then it will show you all butiks
+				if(selectedAsButik == true)//If you selected butik button then it will show you all butiks
 			{
 				var butiker = MainWindow._dbContext.Butikers.ToList();
 
 				SelectedAsListBox.ItemsSource = butiker;
 				SelectedAsListBox.Visibility = Visibility.Visible;
 
-				if(selectedAsButik != null) //Fills listbox books of that the selected butik has
+				if(selectedButik != null) //Fills listbox books of that the selected butik has
 				{
 					var lagerSaldo = MainWindow._dbContext.LagerSaldos.ToList();
 
@@ -64,7 +62,9 @@ namespace Labb2Databaser.UserControlls
 							RelatedBBListBox.Items.Add(l);
 						}
 					}
+					RelatedBBListBox.DisplayMemberPath = "Titel";
 				}
+				SelectedAsListBox.DisplayMemberPath = "ButikNamn";
 			}
 			else if(selectedAsBook == true)
 			{
@@ -72,22 +72,29 @@ namespace Labb2Databaser.UserControlls
 
 				SelectedAsListBox.ItemsSource = books;
 				SelectedAsListBox.Visibility =Visibility.Visible;
+
+				if(selectedAsBook != null)
+				{
+					
+				}
 			}
 		}
 
-		private void ButikBtn_Click(object sender, RoutedEventArgs e)
+		private void SelectedAsBtn_Click(object sender, RoutedEventArgs e)
 		{
-			selectedAsButik = true;
-			selectedAsBook = false;
+			Button button = sender as Button;
+
+			if (button.Content is "Butiks")
+			{
+				selectedAsButik = true;
+				selectedAsBook = false;
+			}
+			else if(button.Content is "Books")
+			{
+				selectedAsBook = true;
+				selectedAsButik = false;
+			}
 			
-			LoadData();
-		}
-
-		private void BookBtn_Click(object sender, RoutedEventArgs e)
-		{
-			selectedAsBook = true;
-			selectedAsButik = false;
-
 			LoadData();
 		}
 
@@ -97,8 +104,44 @@ namespace Labb2Databaser.UserControlls
 
 			if(listBox.SelectedItem is Böcker)
 			{
+				var currentBook = listBox.SelectedItem as Böcker;
 
+				var butiks = MainWindow._dbContext.Butikers.ToList();
+
+				RelatedBBListBox.ItemsSource = butiks;
 			}
+			else if(listBox.SelectedItem is Butiker)
+			{
+				var currentButik = listBox.SelectedItem as Butiker;
+
+				var books = MainWindow._dbContext.Böckers.ToList();
+
+				RelatedBBListBox.ItemsSource= books;
+
+				RelatedBBListBox.DisplayMemberPath = "Titel";
+			}
+
+			RelatedBBListBox.Visibility = Visibility.Visible;
+
+			LoadData();
+		}
+
+		private void RelatedBBListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			int amount = 0;
+			ListBox listbox = sender as ListBox;
+
+			if (selectedAsBook)
+			{
+				foreach (LagerSaldo l in MainWindow._dbContext.LagerSaldos)
+				{
+					if (l.Isbn == selectedBook.Isbn && l.ButikId == selectedButik.ButikId)
+					{
+						amount += 1;
+					}
+				}
+			}
+			MessageBox.Show($"Result: {amount}");
 		}
 	}
 }

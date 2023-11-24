@@ -27,6 +27,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
@@ -35,28 +36,38 @@
             Grid.Row="1"
             Grid.Column="1"
             Content="Butiks"
-            Width="100" Click="ButikBtn_Click"
-            Height="20"/>
+            Width="100"
+            Height="20"
+            Click="SelectedAsBtn_Click"/>
         
         <Button x:Name="BookBtn"
             Grid.Row="2"
             Grid.Column="1"
             Content="Books"
             Width="100"
-            Height="20"/>
+            Height="20"
+            Click="SelectedAsBtn_Click"/>
 
         <ListBox x:Name="SelectedAsListBox"
                  Grid.Row="3"
                  Grid.Column="3"
-                 Width="100"
-                 Height="200"
+                 Width="200"
+                 Height="300"
+                 SelectionChanged="SelectedAsListBox_SelectionChanged"
                  Visibility="Collapsed"/>
 
         <ListBox x:Name="RelatedBBListBox"
                  Grid.Row="3"
                  Grid.Column="5"
-                 Width="100"
-                 Height="200"
+                 Width="200"
+                 Height="300"
                  Visibility="Collapsed"/>
+
+        <TextBlock x:Name="Result"
+                   Grid.Row="5"
+                   Grid.Column="3"
+                   Width="100"
+                   Height="100"
+                   Visibility="Visible"/>
     </Grid>
 </UserControl>

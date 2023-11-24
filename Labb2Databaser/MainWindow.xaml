@@ -17,10 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
@@ -29,13 +26,18 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Width="100"
-                Content="Move Books to Butik"/>
+                Height="20"
+                Content="Move Books to Butik"
+                Margin="0, 0, 0, 280"/>
 
         <Button x:Name="InfoBtn"
-                Grid.Row="4"
+                Grid.Row="2"
                 Grid.Column="1"
                 Width="100"
-                Content="More" Click="InfoBtn_Click"/>
+                Height="20"
+                Content="More"
+                Click="InfoBtn_Click"
+                Margin="0, 0, 0, 210"/>
 
     </Grid>
 </Window>
