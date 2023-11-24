@@ -58,5 +58,19 @@ namespace Labb2Databaser
 
 			bookInfo.BookInfoStartUp();
 		}
+
+		private void BookSettingsbtn_Click(object sender, RoutedEventArgs e)
+		{
+			bookSettings = new BookSettings();
+			//bookSettings.SetValue(Grid.WidthProperty());
+
+			this.MainGrid.Children.Add(bookSettings);
+
+
+			Grid.SetRow(bookSettings, 2);
+			Grid.SetColumn(bookSettings, 2);
+
+			bookSettings.LoadData();
+		}
 	}
 }

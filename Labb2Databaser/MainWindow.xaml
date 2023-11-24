@@ -25,19 +25,29 @@
         <Button x:Name="BookSettingsbtn"
                 Grid.Row="2"
                 Grid.Column="1"
-                Width="100"
+                Width="130"
                 Height="20"
                 Content="Move Books to Butik"
-                Margin="0, 0, 0, 280"/>
+                Margin="0, 0, 0, 280" 
+                Click="BookSettingsbtn_Click"/>
+
+        <Button x:Name="Add book to system"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="130"
+                Height="20"
+                Content="Move Books to Butik"
+                Margin="0, 0, 0, 210" 
+                Click="BookSettingsbtn_Click"/>
 
         <Button x:Name="InfoBtn"
                 Grid.Row="2"
                 Grid.Column="1"
-                Width="100"
+                Width="130"
                 Height="20"
                 Content="More"
                 Click="InfoBtn_Click"
-                Margin="0, 0, 0, 210"/>
+                Margin="0, 0, 0, 140"/>
 
     </Grid>
 </Window>

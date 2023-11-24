@@ -59,6 +59,15 @@
                 FontSize="20"
                 Click="AddBookBtn_Click"/>
 
+        <Button x:Name="RemoveBookBtn"
+                Width="200"
+                Height="50"
+                Grid.Row="4"
+                Grid.Column="5"
+                Content="Remove Book"
+                Visibility="Visible"
+                FontSize="20" Click="RemoveBookBtn_Click"/>
+
         <ListBox x:Name="BooksListbox"
                   Width="180"
                   Height="350" 

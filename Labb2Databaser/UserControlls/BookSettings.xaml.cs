@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,10 +31,12 @@ namespace Labb2Databaser.UserControlls
 			var allBooks = MainWindow._dbContext.Böckers.ToList();
 			var allButiks = MainWindow._dbContext.Butikers.ToList();
 
+
 			BooksListbox.ItemsSource = allBooks;
 			ButiksListbox.ItemsSource = allButiks;
 
 			AddBookBtn.Visibility = Visibility.Collapsed;
+			RemoveBookBtn.Visibility = Visibility.Collapsed;
 
 			if (selectedBook != null)
 			{
@@ -48,6 +51,7 @@ namespace Labb2Databaser.UserControlls
 			if(selectedButik !=null && selectedBook != null)
 			{
 				AddBookBtn.Visibility = Visibility.Visible;
+				RemoveBookBtn.Visibility = Visibility.Visible;
 			}
 		}
 
@@ -73,5 +77,9 @@ namespace Labb2Databaser.UserControlls
 			LoadData();
 		}
 
+		private void RemoveBookBtn_Click(object sender, RoutedEventArgs e)
+		{
+			//selectedBook
+		}
 	}
 }

@@ -31,37 +31,25 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        
-        <Button x:Name="ButikBtn"
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="Butiks"
-            Width="100"
-            Height="20"
-            Click="SelectedAsBtn_Click"/>
-        
-        <Button x:Name="BookBtn"
-            Grid.Row="2"
-            Grid.Column="1"
-            Content="Books"
-            Width="100"
-            Height="20"
-            Click="SelectedAsBtn_Click"/>
 
-        <ListBox x:Name="SelectedAsListBox"
+
+        <ListBox x:Name="ButikListBox"
                  Grid.Row="3"
                  Grid.Column="3"
                  Width="200"
                  Height="300"
-                 SelectionChanged="SelectedAsListBox_SelectionChanged"
-                 Visibility="Collapsed"/>
+                 SelectionChanged="ButikListBox_SelectionChanged"
+                 Visibility="Visible"
+                 DisplayMemberPath="ButikNamn"/>
 
-        <ListBox x:Name="RelatedBBListBox"
+        <ListBox x:Name="BooksInStoreListBox"
                  Grid.Row="3"
                  Grid.Column="5"
                  Width="200"
                  Height="300"
-                 Visibility="Collapsed"/>
+                 SelectionChanged="BooksInStoreListBox_SelectionChanged"
+                 Visibility="Visible"
+                 DisplayMemberPath="Titel"/>
 
         <TextBlock x:Name="Result"
                    Grid.Row="5"
@@ -69,5 +57,15 @@
                    Width="100"
                    Height="100"
                    Visibility="Visible"/>
+
+
+        <Button x:Name="SelectAllBooks"
+                Width="200"
+                Height="50"
+                Grid.Row="3"
+                Grid.Column="5"
+                Content="Add Book"
+                Visibility="Collapsed"
+                FontSize="20"/>
     </Grid>
 </UserControl>

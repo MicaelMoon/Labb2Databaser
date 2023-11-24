@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Labb2Databaser.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Labb2Databaser.UserControlls
@@ -23,11 +24,9 @@ namespace Labb2Databaser.UserControlls
 	/// </summary>
 	public partial class BookInfo : UserControl
 	{
-		public bool selectedAsButik = false;
-		public bool selectedAsBook = false;
-
 		public Butiker? selectedButik;
 		public Böcker? selectedBook;
+		LagerSaldo selectedButikLagerSaldo;
 
 		public BookInfo()
 		{
@@ -38,110 +37,53 @@ namespace Labb2Databaser.UserControlls
 		{
 			LoadData();
 		}
-		public void LoadData()
+		public async Task LoadData()
 		{
+			var butiker = MainWindow._dbContext.Butikers.ToList();
 
-			BookBtn.Visibility = Visibility.Visible;
-			ButikBtn.Visibility = Visibility.Visible;
-
-				if(selectedAsButik == true)//If you selected butik button then it will show you all butiks
+			if (selectedButik != null)
 			{
-				var butiker = MainWindow._dbContext.Butikers.ToList();
+				selectedButikLagerSaldo = await MainWindow._dbContext.LagerSaldos
+					.FirstOrDefaultAsync(l => l.ButikId == selectedButik.ButikId);
 
-				SelectedAsListBox.ItemsSource = butiker;
-				SelectedAsListBox.Visibility = Visibility.Visible;
-
-				if(selectedButik != null) //Fills listbox books of that the selected butik has
+				foreach(var l in MainWindow._dbContext.LagerSaldos)
 				{
-					var lagerSaldo = MainWindow._dbContext.LagerSaldos.ToList();
-
-					foreach(LagerSaldo l in lagerSaldo)
+					if(l.ButikId == selectedButik.ButikId) //Jag hittade din butik i denna coliumn
 					{
-						if(l.Isbn == selectedBook.Isbn || l.ButikId == selectedButik.ButikId)
-						{
-							RelatedBBListBox.Items.Add(l);
-						}
+						var book = await MainWindow._dbContext.Böckers //**ERROR 
+							.FirstOrDefaultAsync(b => b.Isbn == l.Isbn);
+
+						BooksInStoreListBox.Items.Add($"{book}\nStock ={l.Antal}");
 					}
-					RelatedBBListBox.DisplayMemberPath = "Titel";
 				}
-				SelectedAsListBox.DisplayMemberPath = "ButikNamn";
+				BooksInStoreListBox.ItemsSource = selectedButikLagerSaldo.ToString();
 			}
-			else if(selectedAsBook == true)
+
+			ButikListBox.ItemsSource = butiker;
+
+			/*
+			if (selectedBook != null && selectedButik != null)
 			{
-				var books = MainWindow._dbContext.Böckers.ToList();
 
-				SelectedAsListBox.ItemsSource = books;
-				SelectedAsListBox.Visibility =Visibility.Visible;
-
-				if(selectedAsBook != null)
-				{
-					
-				}
+				Result.Text = $"{selectedButik.ButikNamn}\nhas {booksInStore.Antal} copies of \n{selectedBook.Titel}\nin stock";
 			}
+			*/
 		}
 
-		private void SelectedAsBtn_Click(object sender, RoutedEventArgs e)
+		private void ButikListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			Button button = sender as Button;
+			ListBox listBox = sender as ListBox;
+			selectedButik = listBox.SelectedItem as Butiker;
 
-			if (button.Content is "Butiks")
-			{
-				selectedAsButik = true;
-				selectedAsBook = false;
-			}
-			else if(button.Content is "Books")
-			{
-				selectedAsBook = true;
-				selectedAsButik = false;
-			}
-			
 			LoadData();
 		}
 
-		private void SelectedAsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void BooksInStoreListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ListBox listBox = sender as ListBox;
 
-			if(listBox.SelectedItem is Böcker)
-			{
-				var currentBook = listBox.SelectedItem as Böcker;
-
-				var butiks = MainWindow._dbContext.Butikers.ToList();
-
-				RelatedBBListBox.ItemsSource = butiks;
-			}
-			else if(listBox.SelectedItem is Butiker)
-			{
-				var currentButik = listBox.SelectedItem as Butiker;
-
-				var books = MainWindow._dbContext.Böckers.ToList();
-
-				RelatedBBListBox.ItemsSource= books;
-
-				RelatedBBListBox.DisplayMemberPath = "Titel";
-			}
-
-			RelatedBBListBox.Visibility = Visibility.Visible;
-
+			selectedBook = sender as Böcker;
 			LoadData();
-		}
-
-		private void RelatedBBListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			int amount = 0;
-			ListBox listbox = sender as ListBox;
-
-			if (selectedAsBook)
-			{
-				foreach (LagerSaldo l in MainWindow._dbContext.LagerSaldos)
-				{
-					if (l.Isbn == selectedBook.Isbn && l.ButikId == selectedButik.ButikId)
-					{
-						amount += 1;
-					}
-				}
-			}
-			MessageBox.Show($"Result: {amount}");
 		}
 	}
 }
