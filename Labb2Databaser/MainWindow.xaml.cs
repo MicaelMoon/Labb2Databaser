@@ -49,7 +49,7 @@ namespace Labb2Databaser
 
 		private void InfoBtn_Click(object sender, RoutedEventArgs e)
 		{
-			bookInfo.LoadData();
+			bookInfo.BookInfoStartUp();
 		}
 	}
 }

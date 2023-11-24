@@ -25,16 +25,38 @@ namespace Labb2Databaser.UserControlls
 		public bool selectedAsButik = false;
 		public bool selectedAsBook = false;
 
+		public Butiker? selectedButik;
+
 		public BookInfo()
 		{
 			InitializeComponent();
 		}
 
+		public void BookInfoStartUp()
+		{
+			SelectedAsListBox.Visibility = Visibility.Collapsed;
+			RelatedBBListBox.Visibility = Visibility.Collapsed;
+			LoadData();
+		}
 		public void LoadData()
 		{
 			BookBtn.Visibility = Visibility.Visible;
 			ButikBtn.Visibility = Visibility.Visible;
 
+			SelectedAsListBox.Items.Clear();
+
+			if(selectedAsButik = true)
+			{
+				var butiker = MainWindow._dbContext.Butikers.ToList();
+
+				SelectedAsListBox.ItemsSource = butiker;
+			}
+			else if(selectedAsBook = true)
+			{
+				var books = MainWindow._dbContext.Böckers.ToList();
+
+				SelectedAsListBox.ItemsSource = books;
+			}
 
 		}
 

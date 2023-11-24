@@ -13,6 +13,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
@@ -34,12 +35,27 @@
             Grid.Row="1"
             Grid.Column="1"
             Content="Butiks"
-            Width="100" Click="ButikBtn_Click"/>
+            Width="100" Click="ButikBtn_Click"
+            Height="20"/>
         
         <Button x:Name="BookBtn"
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="1"
             Content="Books"
-            Width="100" Height="20" Grid.RowSpan="2" VerticalAlignment="Top" Click="BookBtn_Click"/>
+            Width="100"
+            Height="20"/>
+
+        <ListBox x:Name="SelectedAsListBox"
+                 Grid.Row="3"
+                 Grid.Column="3"
+                 Width="100"
+                 Height="200"
+                 Visibilit
+
+        <ListBox x:Name="RelatedBBListBox"
+                 Grid.Row="3"
+                 Grid.Column="5"
+                 Width="100"
+                 Height="200"/>
     </Grid>
 </UserControl>
