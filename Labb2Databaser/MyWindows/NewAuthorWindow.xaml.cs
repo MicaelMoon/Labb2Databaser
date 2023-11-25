@@ -30,7 +30,12 @@ namespace Labb2Databaser.MyWindows
 
 		private async Task SubmitAuthorAsync()
 		{
-			Författare author = new Författare(FirstNameTextBox.Text, LastNameTextBox.Text, BirthDateTextBox.Text);
+			Författare author = new Författare
+			{
+				FörNamn = FirstNameTextBox.Text,
+				EfterNamn = LastNameTextBox.Text,
+				FödelseDatum = BirthDateTextBox.Text
+			};
 
 			MainWindow._dbContext.Författares.Add(author);
 

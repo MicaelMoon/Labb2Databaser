@@ -36,7 +36,7 @@
                 Grid.Column="1"
                 Width="130"
                 Height="20"
-                Content="Move Books to Butik"
+                Content="Add book"
                 Margin="0, 0, 0, 210" 
                 Click="AddBookToSystem_Click"/>
 

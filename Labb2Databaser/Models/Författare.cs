@@ -7,14 +7,6 @@ namespace Labb2Databaser.Models;
 
 public partial class Författare
 {
-
-    public Författare(string firstName, string lastName, string birthDate)
-    {
-        this.FörNamn = firstName;
-        this.EfterNamn = lastName;
-        this.FödelseDatum = birthDate;
-    }
-
     public int FörfattarId { get; set; }
 
     public string? FörNamn { get; set; }
