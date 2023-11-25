@@ -73,7 +73,7 @@ namespace Labb2Databaser.UserControlls
 
 		private void AddBookBtn_Click(object sender, RoutedEventArgs e)
 		{
-			selectedBook.AddBookToButikAsync(selectedButik);
+			selectedBook.AddBookToButikAsync(selectedButik, selectedBook);
 			LoadData();
 		}
 

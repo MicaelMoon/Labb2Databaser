@@ -1,0 +1,67 @@
+﻿<Window x:Class="Labb2Databaser.MyWindows.NewAuthorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labb2Databaser.MyWindows"
+        mc:Ignorable="d"
+        Title="NewAuthorWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="TitleText"
+                   Text="Your selected author does not is not registred ni our systm. Please fill in all tje fields to register a new one"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   FontSize="23"
+                   Margin="0, 0, 0, 0"/>
+
+        <TextBlock x:Name="FirstName"
+                   Text="FirstName: "
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Width="100"
+                   Height="20"
+                   Margin="0, 0, 100, 100"/>
+
+        <TextBlock x:Name="LastName"
+                   Text="LastName: "
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Width="100"
+                   Height="20"
+                   Margin="0, 0, 100, 50"/>
+
+        <TextBlock x:Name="BirthDateText"
+                Text="BirthDate"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="100"
+                Height="20"
+                Margin="0, 0, 100, 0"/>
+
+        <TextBox x:Name="NewBirthDate"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Width="200"
+                 Height="20"
+                 Margin="100, 0, 0, 0"/>
+
+        <Button x:Name="SubmitAuthor"
+                Content="Submit"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="100"
+                Height="40"
+                Margin="0, 100, 0, 0" Click="SubmitAuthor_Click"/>
+    </Grid>
+</Window>

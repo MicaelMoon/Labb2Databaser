@@ -32,14 +32,32 @@ namespace Labb2Databaser.UserControlls
 
 			string title = TitleTextBox.Text;
 			string isbn = ISBNTextBox.Text;
-			string author = AuthorTextBox.Text;
+			string authorFirstName = AuthorFirstNameTextBox.Text;
+			string authorLastName = AuthorLastNameTextBox.Text;
 			string releaseDate = ReleaseDateTextBox.Text;
 			string language = LanguageTextBox.Text;
-			int pages = int.Parse(PriceTextBox.Text);
-			int price = int.Parse(PriceTextBox.Text);
+			string pagesString = PagesTextBox.Text;
+			string priceString = PriceTextBox.Text;
+
+			int pages = 0;
+			int price = 0;
+
+			int.TryParse(pagesString, out pages);
+			int.TryParse(priceString, out price);
 
 
-			book.AddBookToSystemAsync(isbn, title, language, pages, price, releaseDate, author);
+			if (pages != 0 && price != 0)
+			{
+				book.AddBookToSystemAsync(isbn, title, language, pages, price, releaseDate, authorFirstName, authorLastName);
+			}
+			else if (pages == 0)
+			{
+				MessageBox.Show("You need to ender the amount pages");
+			}
+			else if (price == 0)
+			{
+				MessageBox.Show("You need to ender a price");
+			}
 		}
 	}
 }

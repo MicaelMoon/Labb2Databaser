@@ -25,6 +25,10 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
@@ -42,33 +46,38 @@
                  Grid.Column="3"
                  Width="100"/>
 
-        <TextBox x:Name="AuthorTextBox"
+        <TextBox x:Name="AuthorFirstNameTextBox"
                  Grid.Row="3"
                  Grid.Column="3"
                  Width="100"/>
 
-        <TextBox x:Name="ISBNTextBox"
+        <TextBox x:Name="AuthorLastNameTextBox"
                  Grid.Row="5"
                  Grid.Column="3"
                  Width="100"/>
 
-        <TextBox x:Name="ReleaseDateTextBox"
+        <TextBox x:Name="ISBNTextBox"
                  Grid.Row="7"
                  Grid.Column="3"
                  Width="100"/>
 
-        <TextBox x:Name="LanguageTextBox"
+        <TextBox x:Name="ReleaseDateTextBox"
                  Grid.Row="9"
                  Grid.Column="3"
                  Width="100"/>
 
-        <TextBox x:Name="PagesTextBox"
+        <TextBox x:Name="LanguageTextBox"
                  Grid.Row="11"
                  Grid.Column="3"
                  Width="100"/>
 
-        <TextBox x:Name="PriceTextBox"
+        <TextBox x:Name="PagesTextBox"
                  Grid.Row="13"
+                 Grid.Column="3"
+                 Width="100"/>
+
+        <TextBox x:Name="PriceTextBox"
+                 Grid.Row="15"
                  Grid.Column="3"
                  Width="100"/>
 
@@ -78,46 +87,52 @@
                    Grid.Column="1"
                    Width="100"/>
 
-        <TextBlock x:Name="Author"
+        <TextBlock x:Name="AuthorFirstName"
                    Text="Author: "
                    Grid.Row="3"
+                   Grid.Column="1"
+                   Width="100"/>
+        
+        <TextBlock x:Name="AuthorLastName"
+                   Text="Author: "
+                   Grid.Row="5"
                    Grid.Column="1"
                    Width="100"/>
 
         <TextBlock x:Name="ISBN"
                    Text="ISBN: "
-                   Grid.Row="5"
+                   Grid.Row="7"
                    Grid.Column="1"
                    Width="100"/>
 
         <TextBlock x:Name="ReleaseDate"
                    Text="Release date: "
-                   Grid.Row="7"
+                   Grid.Row="9"
                    Grid.Column="1"
                    Width="100"/>
 
         <TextBlock x:Name="Language"
                    Text="Language: "
-                   Grid.Row="9"
+                   Grid.Row="11"
                    Grid.Column="1"
                    Width="100"/>
 
         <TextBlock x:Name="Pages"
                    Text="Pages: "
-                   Grid.Row="11"
+                   Grid.Row="13"
                    Grid.Column="1"
                    Width="100"/>
 
         <TextBlock x:Name="Price"
                    Text="Price"
-                   Grid.Row="13"
+                   Grid.Row="15"
                    Grid.Column="1"
                    Width="100"/>
 
         <Button x:Name="SubmitBtn"
                 Content="Submit book"
                 FontSize="15"
-                Grid.Row="15"
+                Grid.Row="17"
                 Grid.Column="3"
                 Width="100"
                 Height="50" Click="SubmitBtn_Click"/>

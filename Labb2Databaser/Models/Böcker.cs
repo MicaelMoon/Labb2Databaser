@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using Labb2Databaser.Data;
+using Labb2Databaser.MyWindows;
 using Labb2Databaser.UserControlls;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -34,29 +36,29 @@ public partial class Böcker
 
     public virtual ICollection<Ordrar> Ordrars { get; set; } = new List<Ordrar>();
 
-    public async Task AddBookToButikAsync(Butiker butik)
+    public async Task AddBookToButikAsync(Butiker butik, Böcker book)
     {
-        LagerSaldo bookToAdd = await MainWindow._dbContext.LagerSaldos
-            .FirstOrDefaultAsync(l => l.ButikId == butik.ButikId && l.Isbn == this.Isbn);
+        bool antalExists = false;
 
-        if(bookToAdd != null)
+        foreach(var l in MainWindow._dbContext.LagerSaldos)
         {
-            bookToAdd.Antal += 1;
-        }
-        else
-        {
-            bookToAdd = new LagerSaldo
+            if(l.ButikId == butik.ButikId && l.Isbn == this.Isbn)
             {
-				ButikId = butik.ButikId,
-				Isbn = this.Isbn,
-                Antal = 1,
-			};
+                l.Antal += 1;
+            }
+        }//Checks if the book you wanna add already exists. if so, onlu increase the antal by 1
+
+        if(antalExists = false)
+        {
+            MainWindow._dbContext.Böckers.Add(book);
         }
+
+        
         await MainWindow._dbContext.SaveChangesAsync();
-        MessageBox.Show($"Save successul. {bookToAdd.Antal}");
+        MessageBox.Show($"Save successul.{book.Titel}");
     }
 
-    public async Task AddBookToSystemAsync(string isbn, string titel, string language, int pages, int price, string releaseDate, string Author)
+    public async Task AddBookToSystemAsync(string isbn, string titel, string language, int pages, int price, string releaseDate, string authorFirstName, string authorLastName)
     {
         this.Isbn = isbn;
         this.Titel = titel;
@@ -65,7 +67,25 @@ public partial class Böcker
         this.Pris = price;
         this.Utgivningsdatum = releaseDate;
 
-        this.FörfattarId = MainWindow._dbContext.Författares
-            .FirstOrDefaultAsync(f => f.FörNamn == Author);
+        var authorExist = await MainWindow._dbContext.Författares
+            .FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
+
+        if(authorExist != null)
+        {
+            this.FörfattarId = authorExist.FörfattarId;
+        }
+        else
+        {
+            NewAuthorWindow newAuthorWindow = new NewAuthorWindow();
+            newAuthorWindow.FirstName.Text += authorFirstName;
+            newAuthorWindow.LastName.Text += authorLastName;
+
+            newAuthorWindow.Show();
+
+            MessageBox.Show("Pause");
+
+            Författare newAuthor = new Författare(); // but inside new author window
+            newAuthor.AddAuthorToSystem();
+        }
     }
 }
