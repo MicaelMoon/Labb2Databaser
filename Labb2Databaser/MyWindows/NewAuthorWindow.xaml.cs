@@ -25,11 +25,21 @@ namespace Labb2Databaser.MyWindows
 			InitializeComponent();
 			TitleText.Text = "Your selected author is not registred in our system." +
 				"\nPlease fill in all the fields to register a new one";
+			BirthDateTextBox.Text = DateTime.Now.ToString();
 		}
+
+		private async Task SubmitAuthorAsync()
+		{
+			Författare author = new Författare(FirstNameTextBox.Text, LastNameTextBox.Text, BirthDateTextBox.Text);
+
+			MainWindow._dbContext.Författares.Add(author);
+
+			await MainWindow._dbContext.SaveChangesAsync();
+		} //Could have a method in Författare that saves.
 
 		private void SubmitAuthor_Click(object sender, RoutedEventArgs e)
 		{
-			Författare author = new Författare();
+			SubmitAuthorAsync();
 		}
 	}
 }

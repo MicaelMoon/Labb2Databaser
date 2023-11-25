@@ -88,13 +88,13 @@
                    Width="100"/>
 
         <TextBlock x:Name="AuthorFirstName"
-                   Text="Author: "
+                   Text="Author first name: "
                    Grid.Row="3"
                    Grid.Column="1"
                    Width="100"/>
         
         <TextBlock x:Name="AuthorLastName"
-                   Text="Author: "
+                   Text="Author last name: "
                    Grid.Row="5"
                    Grid.Column="1"
                    Width="100"/>

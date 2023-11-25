@@ -36,7 +36,8 @@ public partial class Böcker
 
     public virtual ICollection<Ordrar> Ordrars { get; set; } = new List<Ordrar>();
 
-    public async Task AddBookToButikAsync(Butiker butik, Böcker book)
+    private Författare? authorExist;
+	public async Task AddBookToButikAsync(Butiker butik, Böcker book)
     {
         bool antalExists = false;
 
@@ -67,10 +68,29 @@ public partial class Böcker
         this.Pris = price;
         this.Utgivningsdatum = releaseDate;
 
-        var authorExist = await MainWindow._dbContext.Författares
-            .FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
+        Författare authorExist = null;
 
-        if(authorExist != null)
+		try
+		{
+			await foreach (var f in MainWindow._dbContext.Författares)
+			{
+				if (f.FörNamn == authorFirstName && f.EfterNamn == authorLastName)
+				{
+					authorExist = f;
+					break;
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Exception in foreach: {ex.Message}");
+		}
+
+
+		//var authorExist = await MainWindow._dbContext.Författares
+		//.FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
+
+		if (authorExist != null)
         {
             this.FörfattarId = authorExist.FörfattarId;
         }
@@ -80,12 +100,19 @@ public partial class Böcker
             newAuthorWindow.FirstName.Text += authorFirstName;
             newAuthorWindow.LastName.Text += authorLastName;
 
-            newAuthorWindow.Show();
+            bool? result = newAuthorWindow.ShowDialog();
+
+            if(result == true)
+            {
+                MessageBox.Show($"You've sucessfuly added {newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastName.Text} as a new author to our system");
+            }
+            else
+            {
+                MessageBox.Show("You failed to add the author");
+            }
 
             MessageBox.Show("Pause");
 
-            Författare newAuthor = new Författare(); // but inside new author window
-            newAuthor.AddAuthorToSystem();
         }
     }
 }

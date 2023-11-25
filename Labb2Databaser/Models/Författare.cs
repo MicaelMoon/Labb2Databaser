@@ -25,8 +25,4 @@ public partial class Författare
 
     public virtual ICollection<Böcker> Böckers { get; set; } = new List<Böcker>();
 
-    public async Task AddAuthorToSystem(int Id, string firstName, string lastName, string BirthDay)
-    {
-        
-    }
 }

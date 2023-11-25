@@ -26,30 +26,46 @@
                    Margin="0, 0, 0, 0"/>
 
         <TextBlock x:Name="FirstName"
-                   Text="FirstName: "
+                   Text="First name"
                    Grid.Row="1"
                    Grid.Column="1"
                    Width="100"
                    Height="20"
-                   Margin="0, 0, 100, 100"/>
+                   Margin="0, 0, 115, 100"/>
+
+        <TextBox x:Name="FirstNameTextBox"
+                   Text="FirstName"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Width="200"
+                   Height="20"
+                   Margin="200, 0, 100, 100"/>
 
         <TextBlock x:Name="LastName"
-                   Text="LastName: "
+                   Text="Last name"
                    Grid.Row="1"
                    Grid.Column="1"
                    Width="100"
                    Height="20"
-                   Margin="0, 0, 100, 50"/>
+                   Margin="0, 0, 115, 50"/>
+
+        <TextBox x:Name="LastNameTextBox"
+                   Text="LastName"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Width="200"
+                   Height="20"
+                   Margin="200, 0, 100, 50"/>
 
         <TextBlock x:Name="BirthDateText"
-                Text="BirthDate"
+                Text="Birth date"
                 Grid.Row="1"
                 Grid.Column="1"
                 Width="100"
                 Height="20"
-                Margin="0, 0, 100, 0"/>
+                Margin="0, 0, 115, 0"/>
 
-        <TextBox x:Name="NewBirthDate"
+        <TextBox x:Name="BirthDateTextBox"
                  Grid.Row="1"
                  Grid.Column="1"
                  Width="200"

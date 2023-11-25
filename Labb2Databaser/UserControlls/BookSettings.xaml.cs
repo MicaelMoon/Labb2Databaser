@@ -31,6 +31,10 @@ namespace Labb2Databaser.UserControlls
 			var allBooks = MainWindow._dbContext.Böckers.ToList();
 			var allButiks = MainWindow._dbContext.Butikers.ToList();
 
+			foreach (var a in MainWindow._dbContext.Böckers)
+			{
+				MessageBox.Show(a.Titel);
+			}
 
 			BooksListbox.ItemsSource = allBooks;
 			ButiksListbox.ItemsSource = allButiks;
