@@ -43,6 +43,13 @@
                 Grid.ColumnSpan="2"
                 FontSize="20"/>
 
+        <TextBlock x:Name="LagerSaldoTextBlock"
+                   Grid.Row="1"
+                   Grid.Column="5"
+                   Grid.ColumnSpan="2"
+                   FontSize="20"
+                   Visibility="Collapsed"/>
+
         <TextBlock x:Name="AddBookText"
                    Grid.Row="2"
                    Grid.Column="5"

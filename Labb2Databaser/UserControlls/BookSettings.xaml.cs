@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Labb2Databaser.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb2Databaser.UserControlls
 {
@@ -49,8 +50,13 @@ namespace Labb2Databaser.UserControlls
 
 			if(selectedButik !=null && selectedBook != null)
 			{
+				var lagerSaldo = await MainWindow._dbContext.LagerSaldos
+					.FirstOrDefaultAsync(l => l.ButikId == selectedButik.ButikId && l.Isbn == selectedBook.Isbn);
+
+				LagerSaldoTextBlock.Text = $"\"{selectedButik.ButikNamn}\" has {(lagerSaldo?.Antal ?? 0)} copies of \"{selectedBook.Titel}\" in stock";
 				AddBookBtn.Visibility = Visibility.Visible;
 				RemoveBookBtn.Visibility = Visibility.Visible;
+				LagerSaldoTextBlock .Visibility = Visibility.Visible;
 			}
 		}
 
@@ -78,7 +84,8 @@ namespace Labb2Databaser.UserControlls
 
 		private void RemoveBookBtn_Click(object sender, RoutedEventArgs e)
 		{
-			//selectedBook
+			selectedBook.RemoveBookFromButikAsync(selectedButik);
+			LoadData();
 		}
 	}
 }

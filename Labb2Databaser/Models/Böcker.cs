@@ -38,20 +38,8 @@ public partial class Böcker
 
     private Författare? authorExist;
 
-    public static Författare? newAuthr;
 	public async Task AddBookToButikAsync(Butiker butik, Böcker book) // get rid of the book
     {
-        //bool antalExists = false;
-        /*
-        foreach(var l in MainWindow._dbContext.LagerSaldos)
-        {
-            if(l.ButikId == butik.ButikId && l.Isbn == this.Isbn)
-            {
-                l.Antal += 1;
-            }
-        }//Checks if the book you wanna add already exists. if so, onlu increase the antal by 1
-        */
-
         var booklagerSaldoExist = await MainWindow._dbContext.LagerSaldos
             .FirstOrDefaultAsync(l => l.ButikId == butik.ButikId && l.Isbn == book.Isbn);
 
@@ -75,8 +63,13 @@ public partial class Böcker
 		}
 
         await MainWindow._dbContext.SaveChangesAsync();
+
     }
 
+    public async Task RemoveBookFromButikAsync(Butiker butik)
+    {
+
+    }
     public async Task AddBookToSystemAsync(string isbn, string titel, string language, int pages, int price, string releaseDate, string authorFirstName, string authorLastName)
     {
         this.Isbn = isbn;
