@@ -37,10 +37,12 @@ public partial class Böcker
     public virtual ICollection<Ordrar> Ordrars { get; set; } = new List<Ordrar>();
 
     private Författare? authorExist;
-	public async Task AddBookToButikAsync(Butiker butik, Böcker book)
-    {
-        bool antalExists = false;
 
+    public static Författare? newAuthr;
+	public async Task AddBookToButikAsync(Butiker butik, Böcker book) // get rid of the book
+    {
+        //bool antalExists = false;
+        /*
         foreach(var l in MainWindow._dbContext.LagerSaldos)
         {
             if(l.ButikId == butik.ButikId && l.Isbn == this.Isbn)
@@ -48,15 +50,31 @@ public partial class Böcker
                 l.Antal += 1;
             }
         }//Checks if the book you wanna add already exists. if so, onlu increase the antal by 1
+        */
 
-        if(antalExists = false)
+        var booklagerSaldoExist = await MainWindow._dbContext.LagerSaldos
+            .FirstOrDefaultAsync(l => l.ButikId == butik.ButikId && l.Isbn == book.Isbn);
+
+        if(booklagerSaldoExist == null)
         {
-            MainWindow._dbContext.Böckers.Add(book);
-        }
+            //Finns inget saldo. Skapa ett
+            LagerSaldo lagerSaldo = new LagerSaldo();
+            lagerSaldo.Isbn = book.Isbn;
+            lagerSaldo.ButikId = butik.ButikId;
+            lagerSaldo.Antal = 1;
 
-        
+            MainWindow._dbContext.LagerSaldos.Add(lagerSaldo);
+
+            MessageBox.Show($"Youj've sucessfuly added \"{book.Titel}\" to the store \"{butik.ButikNamn}\"");
+        }
+        else
+        {
+			//LagerSaldo exist  Increase the antal by 1
+			booklagerSaldoExist.Antal += 1;
+            MessageBox.Show($"You've added an additional copy of \"{book.Titel}\" to the store \"{butik.ButikNamn}\"");
+		}
+
         await MainWindow._dbContext.SaveChangesAsync();
-        MessageBox.Show($"Save successul.{book.Titel}");
     }
 
     public async Task AddBookToSystemAsync(string isbn, string titel, string language, int pages, int price, string releaseDate, string authorFirstName, string authorLastName)
@@ -68,51 +86,43 @@ public partial class Böcker
         this.Pris = price;
         this.Utgivningsdatum = releaseDate;
 
-        Författare authorExist = null;
-
-		try
-		{
-			await foreach (var f in MainWindow._dbContext.Författares)
-			{
-				if (f.FörNamn == authorFirstName && f.EfterNamn == authorLastName)
-				{
-					authorExist = f;
-					break;
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Exception in foreach: {ex.Message}");
-		}
-
-
-		//var authorExist = await MainWindow._dbContext.Författares
-		//.FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
+		var authorExist = await MainWindow._dbContext.Författares
+		.FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
 
 		if (authorExist != null)
         {
             this.FörfattarId = authorExist.FörfattarId;
-        }
+
+			MainWindow._dbContext.Böckers.Add(this);
+			MainWindow._dbContext.SaveChangesAsync();
+		}
         else
         {
             NewAuthorWindow newAuthorWindow = new NewAuthorWindow();
-            newAuthorWindow.FirstName.Text += authorFirstName;
-            newAuthorWindow.LastName.Text += authorLastName;
+            newAuthorWindow.FirstNameTextBox.Text += authorFirstName;
+            newAuthorWindow.LastNameTextBox.Text += authorLastName;
 
             bool? result = newAuthorWindow.ShowDialog();
 
             if(result == true)
             {
-                MessageBox.Show($"You've sucessfuly added {newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastName.Text} as a new author to our system");
-            }
+				var authorNowExist = await MainWindow._dbContext.Författares
+                    .FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
+
+				this.FörfattarId = authorNowExist.FörfattarId;
+
+				MainWindow._dbContext.Böckers.Add(this);
+				MainWindow._dbContext.SaveChangesAsync();
+
+				MessageBox.Show($"You've sucessfuly added {newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastNameTextBox.Text} as a new author to our system");
+			}
             else
             {
                 MessageBox.Show("You failed to add the author");
             }
 
-            MessageBox.Show("Pause");
-
+            //MainWindow._dbContext.SaveChangesAsync();
         }
+        //'MainWindow._dbContext.Böckers.Add(this);' haveing this code here didnt work?
     }
 }

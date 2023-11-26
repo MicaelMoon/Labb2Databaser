@@ -48,7 +48,15 @@ namespace Labb2Databaser.UserControlls
 
 			if (pages != 0 && price != 0)
 			{
-				book.AddBookToSystemAsync(isbn, title, language, pages, price, releaseDate, authorFirstName, authorLastName);
+				try
+				{
+					book.AddBookToSystemAsync(isbn, title, language, pages, price, releaseDate, authorFirstName, authorLastName);
+					MainWindow._dbContext.Böckers.Add(book);
+				}
+				catch (Exception InvalidOperationException)
+				{
+					MessageBox.Show("You need to enter a unik ISBN");
+				}
 			}
 			else if (pages == 0)
 			{
