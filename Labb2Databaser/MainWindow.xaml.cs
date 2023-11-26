@@ -25,29 +25,12 @@ namespace Labb2Databaser
 		public static LibraryDBContext _dbContext;
 
 		public BookSettings bookSettings;
-		public BookInfo bookInfo;
 		public NewBookUC newBookUC;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 			_dbContext = new LibraryDBContext();
-		}
-
-
-
-		private void InfoBtn_Click(object sender, RoutedEventArgs e)
-		{
-			RemoveExistingUserControls();
-
-			bookInfo = new BookInfo();
-
-			this.MainGrid.Children.Add(bookInfo);
-
-			Grid.SetRow(bookInfo, 2);
-			Grid.SetColumn(bookInfo, 2);
-
-			bookInfo.BookInfoStartUp();
 		}
 
 		private void BookSettingsbtn_Click(object sender, RoutedEventArgs e)
@@ -79,7 +62,6 @@ namespace Labb2Databaser
 		private void RemoveExistingUserControls()
 		{
 			MainGrid.Children.Remove(newBookUC);
-			MainGrid.Children.Remove(bookInfo);
 			MainGrid.Children.Remove(bookSettings);
 		}
 	}
