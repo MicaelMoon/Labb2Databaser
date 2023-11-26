@@ -70,7 +70,7 @@ public partial class Böcker
 		var lagerSaldoExist = await MainWindow._dbContext.LagerSaldos
 	        .FirstOrDefaultAsync(l => l.ButikId == butik.ButikId && l.Isbn == this.Isbn);
 
-        if (lagerSaldoExist != null || lagerSaldoExist.Antal == 0)
+        if (lagerSaldoExist == null || lagerSaldoExist.Antal == 0)
 		{
 			MessageBox.Show($"\"{butik.ButikNamn}\" does not have any copies of \"{this.Titel}\"");
 		}

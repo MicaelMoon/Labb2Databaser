@@ -75,6 +75,14 @@
                 Visibility="Visible"
                 FontSize="20" Click="RemoveBookBtn_Click"/>
 
+        <Button x:Name="UpdatePageBtn"
+                Content="Update page"
+                Width="200"
+                Height="70"
+                Grid.Row="6"
+                Grid.Column="5"
+                FontSize="30" Click="UpdatePageBtn_Click"/>
+
         <ListBox x:Name="BooksListbox"
                   Width="180"
                   Height="350" 

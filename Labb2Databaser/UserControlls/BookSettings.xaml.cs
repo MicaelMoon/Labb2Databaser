@@ -45,7 +45,7 @@ namespace Labb2Databaser.UserControlls
 
 			if(selectedButik != null)
 			{
-				AddBookText.Text += $"\nTo to butik: {selectedButik.ButikNamn}";
+				AddBookText.Text += $"\nTo to butik: {selectedButik.ButikNamn}.";
 			}
 
 			if(selectedButik !=null && selectedBook != null)
@@ -53,7 +53,7 @@ namespace Labb2Databaser.UserControlls
 				var lagerSaldoExist = await MainWindow._dbContext.LagerSaldos
 					.FirstOrDefaultAsync(l => l.ButikId == selectedButik.ButikId && l.Isbn == selectedBook.Isbn);
 
-				LagerSaldoTextBlock.Text = $"\"{selectedButik.ButikNamn}\" has {(lagerSaldoExist?.Antal ?? 0)} copies of \"{selectedBook.Titel}\" in stock";
+				LagerSaldoTextBlock.Text = $"\"{selectedButik.ButikNamn}\" has {(lagerSaldoExist?.Antal ?? 0)} copies of \"{selectedBook.Titel}\" in stock.";
 				AddBookBtn.Visibility = Visibility.Visible;
 				RemoveBookBtn.Visibility = Visibility.Visible;
 				LagerSaldoTextBlock .Visibility = Visibility.Visible;
@@ -87,5 +87,10 @@ namespace Labb2Databaser.UserControlls
 			selectedBook.RemoveBookFromButikAsync(selectedButik);
 			LoadData();
 		}
-	}
+
+		private void UpdatePageBtn_Click(object sender, RoutedEventArgs e) // ´The only reason this button is here is because I somhow didnt manage auto update whenever I made chnages :(
+		{
+			LoadData();
+        }
+    }
 }
