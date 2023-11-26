@@ -50,10 +50,10 @@ namespace Labb2Databaser.UserControlls
 
 			if(selectedButik !=null && selectedBook != null)
 			{
-				var lagerSaldo = await MainWindow._dbContext.LagerSaldos
+				var lagerSaldoExist = await MainWindow._dbContext.LagerSaldos
 					.FirstOrDefaultAsync(l => l.ButikId == selectedButik.ButikId && l.Isbn == selectedBook.Isbn);
 
-				LagerSaldoTextBlock.Text = $"\"{selectedButik.ButikNamn}\" has {(lagerSaldo?.Antal ?? 0)} copies of \"{selectedBook.Titel}\" in stock";
+				LagerSaldoTextBlock.Text = $"\"{selectedButik.ButikNamn}\" has {(lagerSaldoExist?.Antal ?? 0)} copies of \"{selectedBook.Titel}\" in stock";
 				AddBookBtn.Visibility = Visibility.Visible;
 				RemoveBookBtn.Visibility = Visibility.Visible;
 				LagerSaldoTextBlock .Visibility = Visibility.Visible;

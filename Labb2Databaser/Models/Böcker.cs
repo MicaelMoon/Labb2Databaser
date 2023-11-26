@@ -40,10 +40,10 @@ public partial class Böcker
 
 	public async Task AddBookToButikAsync(Butiker butik, Böcker book) // get rid of the book
     {
-        var booklagerSaldoExist = await MainWindow._dbContext.LagerSaldos
+        var lagerSaldoExist = await MainWindow._dbContext.LagerSaldos
             .FirstOrDefaultAsync(l => l.ButikId == butik.ButikId && l.Isbn == book.Isbn);
 
-        if(booklagerSaldoExist == null)
+        if(lagerSaldoExist == null)
         {
             //Finns inget saldo. Skapa ett
             LagerSaldo lagerSaldo = new LagerSaldo();
@@ -53,23 +53,35 @@ public partial class Böcker
 
             MainWindow._dbContext.LagerSaldos.Add(lagerSaldo);
 
-            MessageBox.Show($"Youj've sucessfuly added \"{book.Titel}\" to the store \"{butik.ButikNamn}\"");
+            MessageBox.Show($"You've sucessfuly added \"{book.Titel}\" to the store \"{butik.ButikNamn}\"");
         }
         else
         {
 			//LagerSaldo exist  Increase the antal by 1
-			booklagerSaldoExist.Antal += 1;
+			lagerSaldoExist.Antal += 1;
             MessageBox.Show($"You've added an additional copy of \"{book.Titel}\" to the store \"{butik.ButikNamn}\"");
 		}
 
         await MainWindow._dbContext.SaveChangesAsync();
-
     }
 
     public async Task RemoveBookFromButikAsync(Butiker butik)
     {
+		var lagerSaldoExist = await MainWindow._dbContext.LagerSaldos
+	        .FirstOrDefaultAsync(l => l.ButikId == butik.ButikId && l.Isbn == this.Isbn);
 
-    }
+        if (lagerSaldoExist != null || lagerSaldoExist.Antal == 0)
+		{
+			MessageBox.Show($"\"{butik.ButikNamn}\" does not have any copies of \"{this.Titel}\"");
+		}
+		else
+		{
+			lagerSaldoExist.Antal -= 1;
+			MessageBox.Show($"You've removed a copy of \"{this.Titel}\" from the store \"{butik.ButikNamn}\"");
+		}
+
+		await MainWindow._dbContext.SaveChangesAsync();
+	}
     public async Task AddBookToSystemAsync(string isbn, string titel, string language, int pages, int price, string releaseDate, string authorFirstName, string authorLastName)
     {
         this.Isbn = isbn;
