@@ -100,8 +100,12 @@ public partial class Böcker
 
 			MainWindow._dbContext.Böckers.Add(this);
 			MainWindow._dbContext.SaveChangesAsync();
+
+			MessageBox.Show($"You've sucessfuly added {this.Titel} as a new book to our system");
+
+
 		}
-        else
+		else
         {
             NewAuthorWindow newAuthorWindow = new NewAuthorWindow();
             newAuthorWindow.FirstNameTextBox.Text += authorFirstName;
@@ -119,7 +123,7 @@ public partial class Böcker
 				MainWindow._dbContext.Böckers.Add(this);
 				MainWindow._dbContext.SaveChangesAsync();
 
-				MessageBox.Show($"You've sucessfuly added {newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastNameTextBox.Text} as a new author to our system");
+				MessageBox.Show($"You've sucessfuly added \"{newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastNameTextBox.Text}\" as a new author to our system.\n As well as a new book called \"{this.Titel}\"");
 			}
             else
             {

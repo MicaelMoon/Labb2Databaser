@@ -84,5 +84,13 @@
                 Width="100"
                 Height="40" Click="DeleteBtn_Click"/>
 
+        <Button x:Name="UpdateBtn"
+                Content="Update"
+                FontSize="23"
+                Grid.Row="4"
+                Grid.Column="5"
+                Width="100"
+                Height="70"/>
+
     </Grid>
 </UserControl>
