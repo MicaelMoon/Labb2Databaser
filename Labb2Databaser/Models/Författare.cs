@@ -15,6 +15,8 @@ public partial class Författare
 
     public string? FödelseDatum { get; set; }
 
+    public string FullName => $"{FörNamn} {EfterNamn}";
+
     public virtual ICollection<Böcker> Böckers { get; set; } = new List<Böcker>();
 
 }

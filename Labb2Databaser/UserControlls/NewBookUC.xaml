@@ -68,7 +68,7 @@
               Grid.RowSpan="2"
               Width="150"
               Height="23"
-              DisplayMemberPath="FörNamn" SelectionChanged="AuthorComboBox_SelectionChanged">
+              DisplayMemberPath="FullName" SelectionChanged="AuthorComboBox_SelectionChanged">
         </ComboBox>
 
         <TextBlock x:Name="ComboboxPlaceholder"

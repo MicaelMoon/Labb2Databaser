@@ -80,13 +80,6 @@ namespace Labb2Databaser
 
 			if (result == true)
 			{
-				var authorNowExist = await MainWindow._dbContext.Författares
-					.FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
-
-				this.FörfattarId = authorNowExist.FörfattarId;
-
-				MainWindow._dbContext.Böckers.Add(this);
-				MainWindow._dbContext.SaveChangesAsync();
 				MessageBox.Show($"You've sucessfuly added {newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastNameTextBox.Text} as a new author to our system");
 			}
 			else
