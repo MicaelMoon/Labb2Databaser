@@ -88,7 +88,7 @@ namespace Labb2Databaser.UserControlls
 			LoadData();
 		}
 
-		private void UpdatePageBtn_Click(object sender, RoutedEventArgs e) // ´The only reason this button is here is because I somhow didnt manage auto update whenever I made chnages :(
+		private void UpdatePageBtn_Click(object sender, RoutedEventArgs e) //The only reason this button is here is because I somhow didnt manage auto update whenever I made chnages :(
 		{
 			LoadData();
         }

@@ -42,6 +42,10 @@ namespace Labb2Databaser.UserControlls
 			isBook = true;
 		}
 
+        private async Task LoadData()
+        {
+
+        }
 		private void ShowAuthorsBtn_Click(object sender, RoutedEventArgs e)
 		{
             var allAuthors = MainWindow._dbContext.Författares.ToList();
@@ -59,13 +63,13 @@ namespace Labb2Databaser.UserControlls
 		{
             ListBox listbox = sender as ListBox;
             
-            if(sender is Böcker)
+            if(DataListBox.SelectedItem is Böcker)
             {
-                selectedBook = sender as Böcker;
+                selectedBook = DataListBox.SelectedItem as Böcker;
             }
-            else if(sender is Författare)
+            else if(DataListBox.SelectedItem is Författare)
             {
-                selectedAuthor = sender as Författare;
+                selectedAuthor = DataListBox.SelectedItem as Författare;
             }
 		}
 
@@ -75,7 +79,7 @@ namespace Labb2Databaser.UserControlls
 		}
 
         private async Task DeleteDataAsync()
-        {
+            {
 			if (isBook == true)
 			{
 				MainWindow._dbContext.Böckers.Remove(selectedBook);
@@ -85,12 +89,13 @@ namespace Labb2Databaser.UserControlls
 				MainWindow._dbContext.Författares.Remove(selectedAuthor);
 			}
 
-			selectedBook = null;
-            selectedAuthor = null;
-
             await MainWindow._dbContext.SaveChangesAsync();
 
             MessageBox.Show($"You've successfully deleted {(isBook ? selectedBook.Titel : selectedAuthor.FullName)}");
+
+			selectedBook = null;
+			selectedAuthor = null;
+
 		}
 	}
 }
