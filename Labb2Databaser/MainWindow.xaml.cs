@@ -13,7 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Labb2Databaser.Data;
+using Labb2Databaser.Models;
+using Labb2Databaser.MyWindows;
 using Labb2Databaser.UserControlls;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb2Databaser
 {
@@ -64,5 +67,32 @@ namespace Labb2Databaser
 			MainGrid.Children.Remove(newBookUC);
 			MainGrid.Children.Remove(bookSettings);
 		}
-	}
+
+		private void NewAuthorBtn_Click(object sender, RoutedEventArgs e)
+		{
+			RegisterAuthorAsync();
+		}
+		private async Task RegisterAuthorAsync()
+		{
+			NewAuthorWindow newAuthorWindow = new NewAuthorWindow();
+
+			bool? result = newAuthorWindow.ShowDialog();
+
+			if (result == true)
+			{
+				var authorNowExist = await MainWindow._dbContext.Författares
+					.FirstOrDefaultAsync(f => f.FörNamn == authorFirstName && f.EfterNamn == authorLastName);
+
+				this.FörfattarId = authorNowExist.FörfattarId;
+
+				MainWindow._dbContext.Böckers.Add(this);
+				MainWindow._dbContext.SaveChangesAsync();
+				MessageBox.Show($"You've sucessfuly added {newAuthorWindow.FirstNameTextBox.Text} {newAuthorWindow.LastNameTextBox.Text} as a new author to our system");
+			}
+			else
+			{
+				MessageBox.Show("You failed to add the author");
+			}
+		}
+    }
 }

@@ -21,9 +21,25 @@ namespace Labb2Databaser.UserControlls
 	/// </summary>
 	public partial class NewBookUC : UserControl
 	{
+		public Författare selectedAuthor;
+
 		public NewBookUC()
 		{
 			InitializeComponent();
+			LoadData();
+		}
+
+		private async Task LoadData()
+		{
+			var allAuthors = MainWindow._dbContext.Författares.ToList();
+
+			AuthorComboBox.ItemsSource = allAuthors;
+
+			if(selectedAuthor != null)
+			{
+				AuthorFirstNameTextBox.Text = selectedAuthor.FörNamn;
+				AuthorLastNameTextBox.Text = selectedAuthor.EfterNamn;
+			}
 		}
 
 		private void SubmitBtn_Click(object sender, RoutedEventArgs e)
@@ -66,6 +82,17 @@ namespace Labb2Databaser.UserControlls
 			{
 				MessageBox.Show("You need to ender a price");
 			}
+		}
+
+		private void AuthorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ComboBox comboBox = sender as ComboBox;
+			selectedAuthor = comboBox.SelectedItem as Författare;
+
+			ComboboxPlaceholder.Text = selectedAuthor.FörNamn;
+			ComboboxPlaceholder.Visibility = Visibility.Collapsed;
+
+			LoadData();
 		}
 	}
 }

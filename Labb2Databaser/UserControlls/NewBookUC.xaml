@@ -11,7 +11,7 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="19"/>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="20"/>
@@ -37,6 +37,11 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
@@ -49,12 +54,32 @@
         <TextBox x:Name="AuthorFirstNameTextBox"
                  Grid.Row="3"
                  Grid.Column="3"
-                 Width="100"/>
+                 Width="100"
+                 Height="19"/>
 
         <TextBox x:Name="AuthorLastNameTextBox"
                  Grid.Row="5"
                  Grid.Column="3"
                  Width="100"/>
+
+        <ComboBox x:Name="AuthorComboBox"
+              Grid.Row="3"
+              Grid.Column="5"
+              Grid.RowSpan="2"
+              Width="150"
+              Height="23"
+              DisplayMemberPath="FörNamn" SelectionChanged="AuthorComboBox_SelectionChanged">
+        </ComboBox>
+
+        <TextBlock x:Name="ComboboxPlaceholder"
+                Text="Authors"
+                Grid.Row="3"
+                   Grid.RowSpan="2"
+                Grid.Column="5"
+                Width="45"
+                Height="13"
+                Margin="0, 0, 97, 5"/>
+
 
         <TextBox x:Name="ISBNTextBox"
                  Grid.Row="7"
