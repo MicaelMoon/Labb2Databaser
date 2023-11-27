@@ -46,36 +46,43 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="BooksListBoxTitle"
-                 Text="Books"
-                 Grid.Column="1"
-                 Grid.Row="1"
-                 FontSize="20"/>
-
-        <TextBlock x:Name="ButiksListBoxTitle"
-                Text="Butiks"
+        <TextBlock x:Name="DataListBoxTitle"
                 Grid.Column="3"
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
                 FontSize="20"/>
 
-        <ListBox x:Name="BooksListbox"
-          Width="180"
-          Height="350" 
-          Grid.Column="1"
-          Grid.Row="2"
-          Grid.RowSpan="6"
-          SelectionChanged="BooksCombobox_SelectionChanged"
-          DisplayMemberPath="Titel"
-          />
+        <Button x:Name="ShowBooksBtn"
+                Content="Books"
+                FontSize="23"
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="100"
+                Height="40" Click="ShowBooksBtn_Click"/>
 
-        <ListBox x:Name="ButiksListbox"
-        Width="180"
-        Height="350"
-        Grid.Column="3"
-        Grid.Row="2"
-        Grid.RowSpan="6"
-        SelectionChanged ="ButiksCombobox_SelectionChanged"
-        DisplayMemberPath="ButikNamn"/>
+        <Button x:Name="ShowAuthorsBtn"
+                Content="Authors"
+                FontSize="23"
+                Grid.Row="4"
+                Grid.Column="1"
+                Width="100"
+                Height="40" Click="ShowAuthorsBtn_Click"/>
+
+        <ListBox x:Name="DataListBox"
+                Width="180"
+                Height="350"
+                Grid.Column="3"
+                Grid.Row="2"
+                Grid.RowSpan="6"
+                DisplayMemberPath="ButikNamn" SelectionChanged="DataListBox_SelectionChanged"/>
+
+        <Button x:Name="DeleteBtn"
+                Content="Delete"
+                FontSize="23"
+                Grid.Row="3"
+                Grid.Column="5"
+                Width="100"
+                Height="40" Click="DeleteBtn_Click"/>
+
     </Grid>
 </UserControl>

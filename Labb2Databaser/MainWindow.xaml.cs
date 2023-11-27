@@ -95,6 +95,7 @@ namespace Labb2Databaser
 		private void DeleteBtn_Click(object sender, RoutedEventArgs e)
 		{
 			RemoveExistingUserControls();
+			deleteUC = new DeleteDataUC();
 
 			this.MainGrid.Children.Add(deleteUC);
 
