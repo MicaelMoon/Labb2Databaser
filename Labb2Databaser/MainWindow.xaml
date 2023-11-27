@@ -48,5 +48,13 @@
                 Content="Register new author"
                 Margin="0, 0, 0, 140" Click="NewAuthorBtn_Click" />
 
+        <Button x:Name="DeleteBtn"
+         Grid.Row="2"
+         Grid.Column="1"
+         Width="150"
+         Height="20"
+         Content="Delete book/Author"
+         Margin="0, 0, 0, 70" Click="DeleteBtn_Click"/>
+
     </Grid>
 </Window>

@@ -29,6 +29,7 @@ namespace Labb2Databaser
 
 		public BookSettings bookSettings;
 		public NewBookUC newBookUC;
+		public DeleteDataUC deleteUC;
 
 		public MainWindow()
 		{
@@ -66,12 +67,15 @@ namespace Labb2Databaser
 		{
 			MainGrid.Children.Remove(newBookUC);
 			MainGrid.Children.Remove(bookSettings);
+			MainGrid.Children.Remove(deleteUC);
+
 		}
 
 		private void NewAuthorBtn_Click(object sender, RoutedEventArgs e)
 		{
 			RegisterAuthorAsync();
 		}
+
 		private async Task RegisterAuthorAsync()
 		{
 			NewAuthorWindow newAuthorWindow = new NewAuthorWindow();
@@ -87,5 +91,15 @@ namespace Labb2Databaser
 				MessageBox.Show("You failed to add the author");
 			}
 		}
-    }
+
+		private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+		{
+			RemoveExistingUserControls();
+
+			this.MainGrid.Children.Add(deleteUC);
+
+			Grid.SetRow(deleteUC, 2);
+			Grid.SetColumn(deleteUC, 2);
+		}
+	}
 }
